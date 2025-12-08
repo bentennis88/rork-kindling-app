@@ -7,6 +7,7 @@ import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { OnboardingProvider, useOnboarding } from "@/contexts/OnboardingContext";
 import { View, ActivityIndicator, StyleSheet, StatusBar, Appearance } from "react-native";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { trpc, trpcClient } from "@/lib/trpc";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -63,17 +64,19 @@ export default function RootLayout() {
   return (
     <ErrorBoundary>
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
-      <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <OnboardingProvider>
-          <GestureHandlerRootView style={{ flex: 1 }}>
-            <OnboardingWrapper>
-              <RootLayoutNav />
-            </OnboardingWrapper>
-          </GestureHandlerRootView>
-        </OnboardingProvider>
-      </AuthProvider>
-    </QueryClientProvider>
+      <trpc.Provider client={trpcClient} queryClient={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <OnboardingProvider>
+              <GestureHandlerRootView style={{ flex: 1 }}>
+                <OnboardingWrapper>
+                  <RootLayoutNav />
+                </OnboardingWrapper>
+              </GestureHandlerRootView>
+            </OnboardingProvider>
+          </AuthProvider>
+        </QueryClientProvider>
+      </trpc.Provider>
     </ErrorBoundary>
   );
 }
