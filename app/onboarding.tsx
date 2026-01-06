@@ -73,7 +73,7 @@ export default function OnboardingScreen() {
 
   const handleGetStarted = async () => {
     await completeOnboarding();
-    router.replace('/(tabs)');
+    router.replace('/');
   };
 
   const renderPage = ({ item }: { item: OnboardingPage }) => (

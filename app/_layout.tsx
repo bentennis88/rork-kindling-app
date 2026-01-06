@@ -18,7 +18,7 @@ function RootLayoutNav() {
   return (
     <Stack screenOptions={{ headerBackTitle: "Back" }}>
       <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="spark/[id]" options={{ headerShown: false, presentation: "modal" }} />
       <Stack.Screen name="modal" options={{ presentation: "modal" }} />
     </Stack>
@@ -37,10 +37,10 @@ function OnboardingWrapper({ children }: { children: React.ReactNode }) {
     const inOnboarding = segments[0] && segments[0].includes('onboarding');
 
     if (!hasCompletedOnboarding && !inOnboarding) {
-      router.push('/(tabs)' as any);
+      router.push('/' as any);
       setTimeout(() => router.push('/onboarding' as any), 100);
     } else if (hasCompletedOnboarding && inOnboarding) {
-      router.replace('/(tabs)' as any);
+      router.replace('/' as any);
     }
   }, [hasCompletedOnboarding, onboardingLoading, authLoading, segments, router]);
 
